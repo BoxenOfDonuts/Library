@@ -2,6 +2,10 @@
     box-sizing: border-box;
 }
 
+body {
+  background-color: #89cff0;
+}
+
 /* button to open form */
 .open-button {
     background-color: #555;
@@ -36,7 +40,9 @@
   }
 
   /* Full-width input fields */
-.form-container input[type=text], .form-container input[type=password], .form-container input[type=number] {
+.form-container input[type=text],
+.form-container input[type=password],
+.form-container input[type=number] {
     width: 100%;
     padding: 15px;
     margin: 5px 0 22px 0;
@@ -58,8 +64,8 @@
     margin-right: 15px;
   }
 
-  .form-container .btn {
-    background-color: #4CAF50;
+  .btn {
+    background-color: black;
     color: white;
     padding: 16px 20px;
     border: none;
@@ -67,6 +73,14 @@
     width: 100%;
     margin-bottom:10px;
     opacity: 0.8;
+  }
+
+  .library-container .un-read {
+    background-color: black;
+  }
+
+  .form-container .btn {
+    background-color: #4CAF50;
   }
 
   /* Add a red background color to the cancel button */
@@ -81,22 +95,119 @@
   }
 
   .book {
+    display: block;
     margin: 15px;
     background-color: #f8e6b8;
-    min-height: 250px;
-    min-width: 200px;
+    height: 300px;
+    width: 200px;
     font-size: 1.5em;
-    padding: 10px;
+    padding: 10px 20px 10px 10px ;
     border-radius: 10px;
     border: 2px solid black;
-  
+    position: relative;
+    overflow: hidden;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-rows: 1.5fr repeat(3, 1fr);
+    gap: 5px;
+    align-items: center;
   }
 
   .book > div {
-    padding: 15px 0 20px;
+    /* padding: 15px 0 20px; */
+
   }
 
   body {
     text-align: center;
     
   }
+
+  .ribbon {
+    margin: 0;
+    padding: 0;
+    background: gold;
+    color:white;
+    padding:0 0;
+    position: absolute;
+    top:0;
+    right:0;
+    transform: translateX(30%) translateY(0%) rotate(45deg);
+    transform-origin: top left;
+    font-size: .5em;
+  }
+  .ribbon:before,
+  .ribbon:after {
+    content: '';
+    position: absolute;
+    top:0;
+    margin: 0 -1px; /* tweak */
+    width: 100%;
+    height: 100%;
+    /* width: 40px;
+    height: 20px;
+    border-bottom: 2px solid black; */
+    background: gold;
+  }
+  .ribbon:before {
+    right:100%;
+  }
+  
+  .ribbon:after {
+    left:100%;
+  }
+
+  .author, .pages {
+    font-size: .75em;
+  }
+
+  .title {
+    align-self: start;
+  }
+
+  #close {
+    position: absolute;
+    top: 0;
+    display:inline-block;
+    padding:2px 5px;
+    background:#ccc;
+  }
+
+  #close:hover {
+    display:inline-block;
+    padding:2px 5px;
+    background:#ccc;
+    color:#fff;
+  }
+
+
+  @media only screen and (max-width: 475px) {
+    .library-container {
+        justify-content: center;
+    }
+
+    .form-popup {
+      position: fixed;
+      align-self: center;
+      border: 3px solid #f1f1f1;
+      z-index: 9;
+      left: 50%;
+      top: 50%;
+      bottom: auto;
+      right: auto;
+      transform: translate(-50%, -50%);
+  
+    }
+
+    .wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .open-button {
+      position: initial;
+    }
+
+}
