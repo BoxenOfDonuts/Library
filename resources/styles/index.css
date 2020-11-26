@@ -6,6 +6,10 @@ body {
   background-color: #89cff0;
 }
 
+:root {
+  --ribbion-color: #8e7300
+}
+
 /* button to open form */
 .open-button {
     background-color: #555;
@@ -126,7 +130,7 @@ body {
   .ribbon {
     margin: 0;
     padding: 0;
-    background: gold;
+    background: var(--ribbion-color);
     color:white;
     padding:0 0;
     position: absolute;
@@ -134,7 +138,7 @@ body {
     right:0;
     transform: translateX(30%) translateY(0%) rotate(45deg);
     transform-origin: top left;
-    font-size: .5em;
+    font-size: .6em;
   }
   .ribbon:before,
   .ribbon:after {
@@ -147,7 +151,7 @@ body {
     /* width: 40px;
     height: 20px;
     border-bottom: 2px solid black; */
-    background: gold;
+    background: var(--ribbion-color);
   }
   .ribbon:before {
     right:100%;
@@ -170,14 +174,16 @@ body {
     top: 0;
     display:inline-block;
     padding: 0 5px;
-    color: black;
+    font-weight: bold;
+    color: red;
     font-size: .8em;
   }
 
   #close:hover {
     display:inline-block;
-    padding:2px 5px;
     color: red;
+    cursor: pointer;
+    transform: scale(1.2);
   }
 
 
