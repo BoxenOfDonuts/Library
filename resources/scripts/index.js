@@ -123,8 +123,9 @@ function getFormData() {
 
 function flipRead(e) {
     if (!e.target.classList.contains('read-button')) return;
-
+    let dataKey = Number(e.target.parentElement.dataset.key);
     let ribbon = e.target.parentElement.lastElementChild;
+
     if (e.target.classList.contains('un-read')) {
         e.target.classList.remove('un-read')
         e.target.innerHTML = 'Complete'
@@ -135,6 +136,14 @@ function flipRead(e) {
         e.target.innerHTML = 'Not Read'
         ribbon.style.display = 'block'
     }
+
+    for (const  [index, element] of myLibrary.entries()) {
+        if (element.key === dataKey) {
+            myLibrary[index].read = !myLibrary[index].read
+        }
+    }
+
+    saveToLocalStorage();
 }
 
 function removeBook(e) {
