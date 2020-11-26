@@ -1,8 +1,8 @@
 let openForm = document.querySelector("#newBook")
 let closeForm = document.querySelector('#cancel-button')
 let submitForm = document.querySelector('#submit-button')
-// let readButtons = document.querySelector('.library-container')
 let readButtons = document.querySelector('.library-container');
+let closeButtons = document.querySelector('.library-container');
 
 let myLibrary = [];
 
@@ -48,7 +48,7 @@ function listBooks() {
             } else if (key == 'read') {
                 const ribbon = document.createElement('h4');
                 let content = document.createElement('button');
-                ribbon.innerHTML = 'unread'
+                // ribbon.innerHTML = 'unread'
                 ribbon.classList.add('ribbon')
 
                 if (book[key]) {
@@ -121,8 +121,21 @@ function flipRead(e) {
     }
 }
 
+function removeBook(e) {
+    if (e.target.id != 'close') return;
+    let index = e.target.parentElement.dataset.key;
+    console.log(index)
+
+    console.table(myLibrary)
+    myLibrary.splice(index , 1);
+    console.table(myLibrary)
+    listBooks();
+    
+}
+
 openForm.addEventListener('click', showHideForm);
 closeForm.addEventListener('click', showHideForm);
 submitForm.addEventListener('click', getFormData);
 submitForm.addEventListener('click', showHideForm);
 readButtons.addEventListener('click', flipRead);
+closeButtons.addEventListener('click', removeBook);

@@ -7,9 +7,12 @@ body {
 }
 
 :root {
-  --ribbion-color: #8e7300
+  --ribbion-color: #ffd700
 }
 
+h1 {
+  font-size: 3em;
+}
 /* button to open form */
 .open-button {
     background-color: #555;
@@ -105,7 +108,7 @@ body {
     height: 300px;
     width: 200px;
     font-size: 1.5em;
-    padding: 10px 20px 10px 10px ;
+    padding: 15px 10px 10px ;
     border-radius: 10px;
     border: 2px solid black;
     position: relative;
@@ -115,11 +118,6 @@ body {
     grid-template-rows: 1.5fr repeat(3, 1fr);
     gap: 5px;
     align-items: center;
-  }
-
-  .book > div {
-    /* padding: 15px 0 20px; */
-
   }
 
   body {
@@ -136,9 +134,11 @@ body {
     position: absolute;
     top:0;
     right:0;
-    transform: translateX(30%) translateY(0%) rotate(45deg);
+    transform: translateX(70%) translateY(0%) rotate(45deg);
     transform-origin: top left;
     font-size: .6em;
+    min-height: 17px;
+    min-width: 42px;
   }
   .ribbon:before,
   .ribbon:after {
@@ -165,9 +165,12 @@ body {
     font-size: .75em;
   }
 
-  .title {
+  .book > div {
     align-self: start;
+    word-wrap: break-word;
+    overflow: hidden;
   }
+
 
   #close {
     position: absolute;
