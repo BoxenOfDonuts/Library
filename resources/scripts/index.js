@@ -4,14 +4,36 @@ let submitForm = document.querySelector('#submit-button')
 let readButtons = document.querySelector('.library-container');
 let closeButtons = document.querySelector('.library-container');
 
-let myLibrary = [];
 
-function Book(title, author, pages, read) {
-    this.key = myLibrary.length;
-    this.title = title
-    this.author = author
-    this.pages = pages
-    this.read = read
+let myLibrary = [];
+let key = 0;
+let saveToLocalStorage = () => {
+    localStorage.setItem('library', JSON.stringify(myLibrary));
+}
+
+let removeFromLocalStorage = () => {
+    localStorage.removeItem('library');
+}
+
+let loadFromLocalStorage = () => {
+    let library = localStorage.getItem('library')
+
+    if (library) {
+        myLibrary = JSON.parse(library);
+        listBooks();
+    }
+    
+}
+
+
+class Book {
+    constructor(title, author, pages, read) {
+        this.key = key++;
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.read = read;
+    }
 
 }
 
@@ -77,15 +99,9 @@ function listBooks() {
 
     })
 
+    saveToLocalStorage();
+
 }
-
-const theHobbit = new Book('The Hobbit', 'J.R.R. Tolkien', 295, false)
-myLibrary.push(theHobbit)
-const endersGame = new Book('Ender\'s Game', 'Orson Scott Card', 400, true)
-myLibrary.push(endersGame)
-listBooks();
-
-
 
 function showHideForm(e) {
     const popup = document.querySelector('.form-popup');
@@ -123,15 +139,19 @@ function flipRead(e) {
 
 function removeBook(e) {
     if (e.target.id != 'close') return;
-    let index = e.target.parentElement.dataset.key;
-    console.log(index)
+    let dataKey = Number(e.target.parentElement.dataset.key);
 
-    console.table(myLibrary)
-    myLibrary.splice(index , 1);
-    console.table(myLibrary)
+    for (const  [index, element] of myLibrary.entries()) {
+        if (element.key === dataKey) {
+            myLibrary.splice(index , 1);
+        }
+    }
+    
     listBooks();
     
 }
+
+loadFromLocalStorage();
 
 openForm.addEventListener('click', showHideForm);
 closeForm.addEventListener('click', showHideForm);
