@@ -119,8 +119,11 @@ function showHideForm(e) {
 
 function getFormData() {
     const formData = document.querySelector('form')
-    
+    if (!formValidation.validateAll(formData)) {
+        return
+    }
 
+    showHideForm.call(this)
     addBookToLibrary(formData.title.value, formData.author.value, formData['page-count'].value, formData.read.checked)
 }
 
@@ -164,6 +167,7 @@ function removeBook(e) {
 }
 
 const formValidation = (() => {
+
     const validateTitle = (element) => {
         const titleError = document.querySelector('[name="title"] + span.error')
         if (element.validity.valid) {
@@ -197,14 +201,30 @@ const formValidation = (() => {
         }
     }
 
+    const validateAll = (form) => {
+        const formData = form
+        const fields = [formData.title, formData.author, formData['page-count']]
+        let valid = true;
+        fields.forEach(field => {
+            if (!field.validity.valid) {
+                const errorSpan = field.nextElementSibling;
+                showError(field, errorSpan);
+                valid = false;
+            }
+        })
+        
+        return valid
+    }
+
     const showError = (field, errorSpan) => {
-        console.log(field)
         if (field.validity.valueMissing) {
             errorSpan.textContent = 'Please enter a value';
         } else if (field.validity.typeMismatch) {
             errorSpan.textContent = 'Value needs to be valid';
         } else if (field.validity.tooShort) {
             errorSpan.textContent = `Field should be at least ${field.minLength} characters`
+        } else if (field.validity.rangeUnderflow) {
+            errorSpan.textContent = `Every book has at least ${field.min} page`
         }
 
         errorSpan.classList.add('active')
@@ -216,15 +236,17 @@ const formValidation = (() => {
         validateTitle,
         validateAuthor,
         validatePageCount,
+        validateAll,
     }
 
 })();
+
+
 
 function validateOnBlur(e) {
     const element = e.target;
     const name = element.name;
     if (name === 'read') return;
-    console.log(name, element)
 
     switch(name) {
         case 'title': 
@@ -247,14 +269,6 @@ loadFromLocalStorage();
 openForm.addEventListener('click', showHideForm);
 closeForm.addEventListener('click', showHideForm);
 submitForm.addEventListener('click', getFormData);
-submitForm.addEventListener('click', showHideForm);
 readButtons.addEventListener('click', flipRead);
 closeButtons.addEventListener('click', removeBook);
-// form.addEventListener('input', (e) => {
-//     const element = e.target;
-//     formValidation.validateTitle(element)
-
-
-// })
-
 inputs.forEach(input => input.addEventListener('blur', validateOnBlur))

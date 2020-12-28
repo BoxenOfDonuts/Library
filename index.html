@@ -15,18 +15,18 @@
             <h1>Add Book</h1>
 
             <label for="title">
-                <input type="text" placeholder="Title" name="title" required minlength="2" autocomplete="off" >
+                <input type="text" placeholder="Title" name="title" required minlength="1" autocomplete="off" >
                 <span class="error" aria-live="polite"></span>
             </label>
 
 
             <label for="author">
-                <input type="text" placeholder="Author" name="author" required>
+                <input type="text" placeholder="Author" name="author" required minLength="1">
                 <span class="error" aria-live="polite"></span>
             </label>
 
             <label for="page-count">
-                <input type="number" placeholder="Page Count" name="page-count" required minlength="1">
+                <input type="number" placeholder="Page Count" name="page-count" required min="1">
                 <span class="error" aria-live="polite"></span>
             </label>
 
