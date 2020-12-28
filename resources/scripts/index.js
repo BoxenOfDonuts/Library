@@ -1,8 +1,10 @@
-let openForm = document.querySelector("#newBook")
-let closeForm = document.querySelector('#cancel-button')
-let submitForm = document.querySelector('#submit-button')
-let readButtons = document.querySelector('.library-container');
-let closeButtons = document.querySelector('.library-container');
+const openForm = document.querySelector("#newBook")
+const closeForm = document.querySelector('#cancel-button')
+const submitForm = document.querySelector('#submit-button')
+const readButtons = document.querySelector('.library-container');
+const closeButtons = document.querySelector('.library-container');
+const form = document.querySelector('.form-container');
+const inputs = document.querySelectorAll('.form-container input');
 
 
 let myLibrary = [];
@@ -116,7 +118,8 @@ function showHideForm(e) {
 }
 
 function getFormData() {
-    let formData = document.querySelector('form')
+    const formData = document.querySelector('form')
+    
 
     addBookToLibrary(formData.title.value, formData.author.value, formData['page-count'].value, formData.read.checked)
 }
@@ -160,6 +163,85 @@ function removeBook(e) {
     
 }
 
+const formValidation = (() => {
+    const validateTitle = (element) => {
+        const titleError = document.querySelector('[name="title"] + span.error')
+        if (element.validity.valid) {
+            titleError.textContent = '';
+            titleError.className = 'error';
+            element.classList.remove('active')
+        } else {
+            showError(element, titleError)
+        }
+    }
+
+    const validateAuthor = (element) => {
+        const authorError = document.querySelector('[name="author"] + span.error')
+        if (element.validity.valid) {
+            authorError.textContent = '';
+            authorError.className = 'error';
+            element.classList.remove('active')
+        } else {
+            showError(element, authorError)
+        }
+    }
+
+    const validatePageCount = (element) => {
+        const pageError = document.querySelector('[name="page-count"] + span.error')
+        if (element.validity.valid) {
+            pageError.textContent = '';
+            pageError.className = 'error';
+            element.classList.remove('active')
+        } else {
+            showError(element, pageError)
+        }
+    }
+
+    const showError = (field, errorSpan) => {
+        console.log(field)
+        if (field.validity.valueMissing) {
+            errorSpan.textContent = 'Please enter a value';
+        } else if (field.validity.typeMismatch) {
+            errorSpan.textContent = 'Value needs to be valid';
+        } else if (field.validity.tooShort) {
+            errorSpan.textContent = `Field should be at least ${field.minLength} characters`
+        }
+
+        errorSpan.classList.add('active')
+        field.classList.add('active')
+
+    }
+
+    return {
+        validateTitle,
+        validateAuthor,
+        validatePageCount,
+    }
+
+})();
+
+function validateOnBlur(e) {
+    const element = e.target;
+    const name = element.name;
+    if (name === 'read') return;
+    console.log(name, element)
+
+    switch(name) {
+        case 'title': 
+            formValidation.validateTitle(element);
+            break;
+        case 'author':
+            formValidation.validateAuthor(element);
+            break;
+        case 'page-count':
+            formValidation.validatePageCount(element);
+            break;
+        default:
+            console.log('oops')
+    }
+
+}
+
 loadFromLocalStorage();
 
 openForm.addEventListener('click', showHideForm);
@@ -168,3 +250,11 @@ submitForm.addEventListener('click', getFormData);
 submitForm.addEventListener('click', showHideForm);
 readButtons.addEventListener('click', flipRead);
 closeButtons.addEventListener('click', removeBook);
+// form.addEventListener('input', (e) => {
+//     const element = e.target;
+//     formValidation.validateTitle(element)
+
+
+// })
+
+inputs.forEach(input => input.addEventListener('blur', validateOnBlur))

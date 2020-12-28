@@ -14,17 +14,24 @@
         <form class="form-container">
             <h1>Add Book</h1>
 
-            <label for="title"></label>
-            <input type="text" placeholder="Title" name="title" >
+            <label for="title">
+                <input type="text" placeholder="Title" name="title" required minlength="2" autocomplete="off" >
+                <span class="error" aria-live="polite"></span>
+            </label>
 
-            <label for="author"></label>
-            <input type="text" placeholder="Author" name="author">
 
-            <label for="page-count"></label>
-            <input type="number" placeholder="Page Count" name="page-count">
+            <label for="author">
+                <input type="text" placeholder="Author" name="author" required>
+                <span class="error" aria-live="polite"></span>
+            </label>
+
+            <label for="page-count">
+                <input type="number" placeholder="Page Count" name="page-count" required minlength="1">
+                <span class="error" aria-live="polite"></span>
+            </label>
 
             <label class="checkbox" for="read">
-            <input type="checkbox" id="read" name="read" value="read">Finisehd</input>
+                <input type="checkbox" id="read" name="read" value="read">Finisehd</input>
             </label>
 
             <button type="button" class="btn" id="submit-button">Add</button>
