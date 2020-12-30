@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library</title>
+</head>
+<body>
+    <div class='wrapper'>
+    <h1>Your Bookshelf</h1>
+    <button type="buton" class="open-button" id="newBook">Add New Book</button>
+    <div class="form-popup" id="new-book-form">
+        <form class="form-container">
+            <h1>Add Book</h1>
+
+            <label for="title">
+                <input type="text" placeholder="Title" name="title" required minlength="1" autocomplete="off" >
+                <span class="error" aria-live="polite"></span>
+            </label>
+
+
+            <label for="author">
+                <input type="text" placeholder="Author" name="author" required minLength="1">
+                <span class="error" aria-live="polite"></span>
+            </label>
+
+            <label for="page-count">
+                <input type="number" placeholder="Page Count" name="page-count" required min="1">
+                <span class="error" aria-live="polite"></span>
+            </label>
+
+            <label class="checkbox" for="read">
+                <input type="checkbox" id="read" name="read" value="read">Finisehd</input>
+            </label>
+
+            <button type="button" class="btn" id="submit-button">Add</button>
+            <button type="button" class="btn cancel" id="cancel-button">Cancel</button>
+
+        </form>
+
+    </div>
+    <div class="button-container">
+        <!-- the button to open was here-->
+        
+    </div>
+    <div class="library-container"></div>
+    </div>
+    
+<script src="main.js"></script>
+</body>
+</html>
