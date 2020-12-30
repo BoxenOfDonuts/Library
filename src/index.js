@@ -1,3 +1,4 @@
+import './index.css';
 const openForm = document.querySelector("#newBook")
 const closeForm = document.querySelector('#cancel-button')
 const submitForm = document.querySelector('#submit-button')
